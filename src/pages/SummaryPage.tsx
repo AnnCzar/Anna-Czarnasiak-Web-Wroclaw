@@ -10,7 +10,7 @@ function SummaryPage() {
 
     const handleOrder = () => {
         localStorage.setItem("lastOrder", JSON.stringify(cart));
-        window.location.href = "/confirmationPage.html";
+        window.location.href = "/Anna-Czarnasiak-Web-Wroclaw/confirmationPage.html";
     };
 
     return (

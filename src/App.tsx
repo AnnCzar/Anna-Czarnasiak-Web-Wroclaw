@@ -21,7 +21,7 @@ function App() {
 
     return (
 
-      <Router>
+        <Router basename="/Anna-Czarnasiak-Web-Wroclaw">
         <Routes>
           <Route path="/" element={<ProductsPage />} />
           <Route path="/cart" element={<CartPage />} />
