@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Potwierdzenie zamówienia</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .item {
+            margin-bottom: 10px;
+        }
+        .total {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            color: #3498db;
+            text-decoration: none;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <h1>Zamówienie złożone pomyślnie!</h1>
+    <div id="order-items">
+        <!-- Tutaj zostaną dynamicznie dodane elementy zamówienia -->
+    </div>
+    <div class="total">Łączna kwota: <span id="total-price">0.00</span> zł</div>
+    <a href="/" class="back-link">Wróć do sklepu</a>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Pobierz zamówienie z localStorage
+        const order = JSON.parse(localStorage.getItem("lastOrder") || "[]");
+        const orderItemsContainer = document.getElementById('order-items');
+
+        // Oblicz łączną kwotę
+        let total = 0;
+
+        // Dodaj elementy zamówienia do strony
+        order.forEach(item => {
+            const itemTotal = item.quantity * (item.price.main + item.price.fractional / 100);
+            total += itemTotal;
+
+            const itemElement = document.createElement('div');
+            itemElement.className = 'item';
+            itemElement.textContent = `${item.name} x${item.quantity}`;
+
+            orderItemsContainer.appendChild(itemElement);
+        });
+
+        // Zaktualizuj łączną kwotę
+        document.getElementById('total-price').textContent = total.toFixed(2);
+
+        // Ustaw flagę do wyczyszczenia koszyka
+        localStorage.setItem("cartCleared", "true");
+    });
+</script>
+</body>
+</html>
